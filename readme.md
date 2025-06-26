@@ -1,3 +1,4 @@
+[![Python application test](https://github.com/novakovichidSHP/git-vibe-2606/actions/workflows/python-tests.yml/badge.svg)](https://github.com/novakovichidSHP/git-vibe-2606/actions/workflows/python-tests.yml)
 # Решатель квадратных уравнений
 
 ## Запуск
