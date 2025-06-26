@@ -1,0 +1,29 @@
+name: Save commit history
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  save-commit-history:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          persist-credentials: false
+
+      - name: Set up Git user
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Save last 10 commits to file
+        run: |
+          git log --oneline -10 > commit_history.txt
+
+      - name: Commit and push changes
+        run: |
+          git add commit_history.txt
+          git diff --cached --quiet && echo "No changes to commit" || (git commit -m "Update commit history [skip ci]" && git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git HEAD:main) 
